@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { createUserDTO, updateUserDTO } from './DTOs/createUserDTO';
@@ -11,8 +12,20 @@ export class UserService {
     constructor(@InjectRepository(User) private readonly userRepository: Repository<User>) {}
 
     async createNewUser(createUser: createUserDTO) {
-        const user =  await this.userRepository.create(createUser);
-        return await this.userRepository.save(user);
+        try {
+            const user =  await this.userRepository.create(createUser);
+            const savedUser =  await this.userRepository.save(user);
+            const {password, ...result} = savedUser;
+            return result;
+
+        } catch (err) {
+            console.log(err.message);
+            return {
+                status: 'failed',
+                message: err.message
+            }
+        }
+       
     }
 
     async getUserById(id: number) {
@@ -20,6 +33,18 @@ export class UserService {
     }
 
     getAllUsers() {
+
+    }
+    async findOneWithUsername (username: string)
+    {
+        return await this.userRepository.findOne({where: {email: username}});
+
+    }
+
+    async findOneWithEmail (email: string)
+    {
+        console.log("in find with email: ", email);
+        return await this.userRepository.findOne({where: {email: email}});
 
     }
 

@@ -5,12 +5,13 @@ import { UserModule } from './user/user.module';
 import { CommentModule } from './comment/comment.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TopicModule } from './topic/topic.module';
+import { AuthModule } from './auth/auth.module';
 import config from 'ormconfig';
 
 /* eslint-disable prettier/prettier */
 
 @Module({
-  imports: [UserModule, CommentModule, TypeOrmModule.forRoot(config), TopicModule],
+  imports: [UserModule, CommentModule, TypeOrmModule.forRoot(config), TopicModule, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

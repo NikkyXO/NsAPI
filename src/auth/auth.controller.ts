@@ -1,0 +1,29 @@
+/* eslint-disable prettier/prettier */
+import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
+import { AuthService } from './auth.service';
+//import { LocalStrategy } from './strategies/local-strategy';
+import { createUserDTO } from 'src/user/DTOs/createUserDTO';
+import { UserService } from 'src/user/user.service';
+import { LocalAUthGuard } from './guards/local-auth.guard';
+
+@Controller('auth')
+export class AuthController {
+
+    constructor(
+        private readonly authService: AuthService,
+        private readonly userService: UserService
+        ){}
+
+
+    @UseGuards(LocalAUthGuard)
+    @Post('login')
+    async loginUser(@Request() req) { 
+        return await this.authService.loginUser(req.user);
+    }
+
+    @Post('register')
+    async RegisterUser(@Body() createUser: createUserDTO) {
+        return await this.userService.createNewUser(createUser);
+
+    }
+}
