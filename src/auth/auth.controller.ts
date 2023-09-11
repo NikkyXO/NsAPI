@@ -5,6 +5,7 @@ import { AuthService } from './auth.service';
 import { createUserDTO } from 'src/user/DTOs/createUserDTO';
 import { UserService } from 'src/user/user.service';
 import { LocalAUthGuard } from './guards/local-auth.guard';
+import { RefreshJwtGuard } from './guards/refresh-jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -25,5 +26,11 @@ export class AuthController {
     async RegisterUser(@Body() createUser: createUserDTO) {
         return await this.userService.createNewUser(createUser);
 
+    }
+
+    @UseGuards(RefreshJwtGuard)
+    @Post('refresh')
+    async RefreshToken(@Request() req) {
+        return await this.authService.refreshToken(req.user);
     }
 }

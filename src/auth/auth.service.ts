@@ -44,6 +44,32 @@ export class AuthService {
             return {
                 ...user,
                 access_token: this.jwtService.sign(payload),
+                refresh_token: this.jwtService.sign(payload, { expiresIn: '7d'}),
+            };
+            
+        } catch (err) {
+            return {
+                statusCode: 400,
+                status: err.status,
+                message: err.message,
+                stack: err.stack
+            }
+        }
+        
+        
+    }
+
+    async refreshToken(user: User){
+        try {
+            const payload = { username: user.email,
+                sub: {
+                    id : user.id,
+                    name: user.username
+                }
+            };
+    
+            return {
+                access_token: this.jwtService.sign(payload),
             };
             
         } catch (err) {
