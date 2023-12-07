@@ -19,3 +19,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         return user;
     }
 }
+
+// passport-local strategy by default expects properties called username and password
+// n the request body. Pass an options object to specify different property names,
+// for example: super({ usernameField: 'email' }). See the passport documentation: 
+// http://www.passportjs.org/concepts/authentication/strategies/

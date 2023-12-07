@@ -26,6 +26,23 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+## setup
+npm i -g @nestjs/cli
+nest new project-name
+
+
+## To generate NestJS building blocks (module, service, controller classes) but also an entity class, DTO classes as well as the testing (.spec) files.
+nest g resource
+
+### To create a controller using the CLI
+nest g controller [name]
+
+### To create a service using the CLI
+nest g service cats
+
+### To create a module using the CLI
+nest g module cats
+
 ## Installation
 
 ```bash
@@ -40,6 +57,13 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
+
+
+# Lint and autofix with eslint
+$ npm run lint
+
+# Format with prettier
+$ npm run format
 
 # production mode
 $ npm run start:prod
@@ -58,17 +82,63 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+##  take advantage of express typings
+npm install @types/express
 
-## Stay in touch
+## NOTE:  Classes are recommended for DTO Because
+## TypeScript interfaces are removed during the transpilation, Nest can't refer to them at runtime.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Directory structure
+src
+ - cats
+    - dto
+      - create-cat.dto.ts
+    - interfaces
+     - cat.interface.ts
+  - cats.controller.ts
+  - cats.module.ts
+  - cats.service.ts
+app.module.ts
+main.ts
 
-## License
 
-Nest is [MIT licensed](LICENSE).
-# NsAPI
+#### Object schema validation
+The Zod library allows you to create schemas in a straightforward way, with a readable API.
+ - npm install --save zod
+
+### Class Validation
+This use decorator-based validation. Decorator-based validation is extremely powerful
+
+ - npm i --save class-validator class-transformer
+
+## AUthentication and authorization with passport
+Reference: https://docs.nestjs.com/recipes/passport
+
+
+### install mysql package to use mysql for database
+npm install mysql --save
+npm install typeorm@latest @nestjs/typeorm@latest
+npm install --save  mysql2
+
+
+## To install swagger
+npm install --save @nestjs/swagger
+http://localhost:3000/api
+
+npm run start
+
+### Implementing Passport authentication/authorization strategy
+npm install --save @nestjs/passport passport passport-local
+$ npm install --save-dev @types/passport-local
+
+
+### install jwt library
+npm install --save @nestjs/jwt passport-jwt
+npm install --save-dev @types/passport-jwt
+
+### fixing errors
+- **Error: ER_NOT_SUPPORTED_AUTH_MODE: Client does not support authentication protocol requested by server; consider upgrading MySQL client**
+- Reference: https://stackoverflow.com/questions/52815608/er-not-supported-auth-mode-client-does-not-support-authentication-protocol-requ
+
+

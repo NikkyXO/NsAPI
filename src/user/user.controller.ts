@@ -3,7 +3,7 @@ import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/comm
 import { createUserDTO, updateUserDTO } from './DTOs/createUserDTO';
 import { UserService } from './user.service';
 import { CommentService } from 'src/comment/comment.service';
-import { JwtGuard } from 'src/auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('user')
 export class UserController {
@@ -26,7 +26,7 @@ export class UserController {
         return this.userService.updateUser(id, updateUser);
     }
 
-    @UseGuards(JwtGuard)
+    @UseGuards(JwtAuthGuard)
     @Get(":id/comments")
     findCommentById(@Param("id") id: string) {
         return this.commentService.getCommentById(id);

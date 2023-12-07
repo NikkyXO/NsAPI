@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { User } from "./user.entity";
-import { Topic } from "./topic.entity";
+import { User } from "../../user/entities/user.entity";
+import { Topic } from "../../topic/entities/topic.entity";
 
 @Entity()
 export class Comment {

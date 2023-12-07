@@ -17,16 +17,16 @@ import {
   Res,
   UsePipes,
 } from '@nestjs/common';
-import { AppService } from './app.service';
+import { CatService } from './cat.service';
 import { Request, Response } from 'express';
 import { Observable, of } from 'rxjs';
-import { CreateCatDto, createCatSchema } from './cats/dtos/create-cat.dto';
-import { ZodValidationPipe } from './examples/customValidationPipes';
-import { ValidationPipe } from './examples/customClassValidator';
+import { CreateCatDto, createCatSchema } from './dtos/create-cat.dto';
+import { ZodValidationPipe } from '../examples/customValidationPipes';
+import { ValidationPipe } from '../examples/customClassValidator';
 
 @Controller('cats')
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class CatController {
+  constructor(private readonly appService: CatService) {}
 
   @Get()
   getHello(): string {

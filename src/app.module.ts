@@ -6,13 +6,25 @@ import { CommentModule } from './comment/comment.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TopicModule } from './topic/topic.module';
 import { AuthModule } from './auth/auth.module';
-import config from 'ormconfig';
-
-/* eslint-disable prettier/prettier */
+import { LikesModule } from './likes/likes.module';
+import config from './app-configs/ormconfig';
+import { databaseProviders } from './database.provider';
 
 @Module({
-  imports: [UserModule, CommentModule, TypeOrmModule.forRoot(config), TopicModule, AuthModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    UserModule,
+    CommentModule,
+    TopicModule,
+    AuthModule,
+    // TypeOrmModule.forRoot({ ...config, autoLoadEntities: true }),
+    LikesModule,
+  ],
+
+  controllers: [AppController, ...databaseProviders],
+  providers: [AppService, ...databaseProviders],
 })
 export class AppModule {}
+
+//NOTE:  when autoLoadEntities: true,
+//  every entity registered through the forFeature() method will be
+// automatically added to the entities array of the configuration object.
