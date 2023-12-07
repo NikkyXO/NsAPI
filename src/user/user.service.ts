@@ -7,7 +7,8 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) private readonly userRepository: Repository<User>,
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
   ) {}
 
   async createNewUser(createUser: createUserDTO) {
@@ -30,12 +31,11 @@ export class UserService {
     return await this.userRepository.findOne({ where: { id: id } });
   }
 
-  getAllUsers() {}
-  async findOneWithUsername(username: string) {
-    return await this.userRepository.findOne({ where: { email: username } });
+  async findUserWithUsername(username: string) {
+    return await this.userRepository.findOne({ where: { username: username } });
   }
 
-  async findOneWithEmail(email: string) {
+  async findUserWithEmail(email: string) {
     console.log('in find with email: ', email);
     return await this.userRepository.findOne({ where: { email: email } });
   }

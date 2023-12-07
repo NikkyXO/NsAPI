@@ -12,8 +12,8 @@ export class AuthService {
   ) {}
 
   async verifyUser(username: string, password: string) {
-    const user = await this.userService.findOneWithUsername(username);
-    console.log('user here: ', user);
+    const user = await this.userService.findUserWithUsername(username);
+    console.log('user here in AuthService.verifyUser: ', user);
 
     const valid = await bcrypt.compare(password, user.password);
 

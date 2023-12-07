@@ -10,6 +10,6 @@ import { CommentModule } from 'src/comment/comment.module';
   imports: [TypeOrmModule.forFeature([User]), CommentModule],
   controllers: [UserController],
   providers: [UserService, CommentService],
-  exports: [UserService],
+  exports: [UserService, TypeOrmModule],
 })
 export class UserModule {}

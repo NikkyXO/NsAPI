@@ -8,20 +8,20 @@ import { TopicModule } from './topic/topic.module';
 import { AuthModule } from './auth/auth.module';
 import { LikesModule } from './likes/likes.module';
 import config from './app-configs/ormconfig';
-import { databaseProviders } from './database.provider';
+// import { databaseProviders } from './database.provider';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot({ ...config, autoLoadEntities: true }),
     UserModule,
     CommentModule,
     TopicModule,
     AuthModule,
-    // TypeOrmModule.forRoot({ ...config, autoLoadEntities: true }),
     LikesModule,
   ],
 
-  controllers: [AppController, ...databaseProviders],
-  providers: [AppService, ...databaseProviders],
+  controllers: [AppController], // ...databaseProviders
+  providers: [AppService], //  ...databaseProviders
 })
 export class AppModule {}
 

@@ -4,11 +4,11 @@
 import { User } from 'src/user/entities/user.entity';
 import { Comment } from 'src/comment/entities/comment.entity';
 
-// import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
+import { MysqlConnectionOptions } from 'typeorm/driver/mysql/MysqlConnectionOptions';
 import { Topic } from 'src/topic/entities/topic.entity';
 
-const config = {
-  // : MysqlConnectionOptions
+const config: MysqlConnectionOptions = {
+  //
   type: 'mysql',
   host: 'localhost',
   port: 3306,

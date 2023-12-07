@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
 
-import { BeforeInsert, Column, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BeforeInsert, Column, OneToMany, PrimaryGeneratedColumn, Unique } from "typeorm";
 import { Entity } from "typeorm/decorator/entity/Entity";
 import * as bcrypt from 'bcrypt'
 import { Comment} from '../../comment/entities/comment.entity'
 
 
 @Entity('user')
+@Unique(["username", "email"])
 export class User {
 
     @PrimaryGeneratedColumn()
@@ -18,8 +19,8 @@ export class User {
     @Column({unique: true, nullable: false})
     email: string;
 
-    @Column('text')
-    description: string;
+    // @Column('text')
+    // description: string;
 
     @Column({nullable: false})
     password: string;
@@ -35,7 +36,5 @@ export class User {
     async hashPassword() {
         this.password = await bcrypt.hash(this.password, 10);
     }
-
-
     
 }

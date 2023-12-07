@@ -7,6 +7,8 @@ import { UserService } from 'src/user/user.service';
 import { LocalAUthGuard } from './guards/local-auth.guard';
 import { RefreshJwtGuard } from './guards/refresh-jwt-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { LoginUserDto } from './dtos/LoginUserDto';
+import { ApiBody } from '@nestjs/swagger';
 
 @Controller('auth')
 export class AuthController {
@@ -19,7 +21,10 @@ export class AuthController {
 
     @UseGuards(LocalAUthGuard)
     @Post('login')
+    @ApiBody({ type: LoginUserDto })
+    // For arrays : @ApiBody({ type: [LoginUserDto] })
     async loginUser(@Request() req) { 
+        console.log("user in login ctrller: ", req.user)
         return await this.authService.loginUser(req.user);
     }
 
@@ -37,7 +42,8 @@ export class AuthController {
 
     @UseGuards(JwtAuthGuard)
     @Get('profile')
-    getProfile(@Request() req ) {
-        req.user;
+    getProfile(@Request() req) {
+        console.log("in profile: ", req)
+        return req.user;
     }
 }
